@@ -1,40 +1,23 @@
-<html>
-<meta charset="utf-8">
-<title>备用联络方式的查询与注册 postwechat.com</title>
-    <body>
-        <div><center>
-		<hr style="width:50%;text-align:left;center">
-            <a href="{{ url_for('search') }}"><font size="10" color="blue">Search</font> </a> 
-            <hr style="width:50%;text-align:left;center">
-            <a href="{{ url_for('inputdata') }}"><font size="10" color="blue">Input</font></a></center>
-        </div>
-        <hr style="width:50%;text-align:left;center">
-        <center>{% with messages = get_flashed_messages() %}</center>
-        <center>{% if messages %}</center>
-        <div style="list-style-type:none;">
-            <center><font size="5" color="red">{% for message in messages %}</font></center>
-            <center><li><font size="5" color="red">{{message}}</font></li>
-            <center><font size="5" color="red">{% endfor %}</font></center>
-        </div>
-        <center>{% endif %}</center>
-        <center>{% endwith %}</center>
-       <center> {% block content %}{% endblock %}</center>
-	   
-<center><font size="3" color="red">warning:</font> <font size="3" color="black">if you wish to withdraw your infomation, just input your wxid and lastname info for a second time with blank app name and id </font></center>
-	<hr style="width:80%;text-align:left;center">
-	<center><font size="3" color="black">本网站在加拿大进行维护，不直接被美国法律管辖。如有必要，可以随时搬家。</font></center>
 
-	<hr style="width:80%;text-align:left;center">
-	<center><font size="3" color="black">Contact Admin by Social Engineering with Following Information: </font></center>	
-	<center><font size="2" color="black">Facheng Guo, Chemistry department, Yale University </font></center>
-	<center><font size="2" color="black">Yizhou Chen, Neuroscience, Baylor College of Medicine </font></center>
-	<center><font size="2" color="yellow">join/support us: facheng.guo@yale.edu </font></center>
-	<hr style="width:80%;text-align:left;center">
-	<hr style="width:80%;text-align:left;center">
-	<hr style="width:80%;text-align:left;center">
-	<center><font size="10" color="red">川普兴，微信亡 </font></center>
-    <center><font size="3" color="black">Thanks for Using postwechat.com</font></center>
-    
-
-    </body>
-</html>
+{% block content %}
+    <h1>Sign In</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
