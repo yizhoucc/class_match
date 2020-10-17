@@ -14,8 +14,8 @@ CREATE or REPLACE TABLE user_login(
 CREATE or REPLACE TABLE userinfo(
     user_info_id int UNSIGNED NOT NULL AUTO_INCREMENT primary key,
     user_id int UNSIGNED NOT NULL ,
-    last_name varchar(16) NOT NULL,
-    first_name varchar(32) NOT NULL,
+    last_name varchar(16),
+    first_name varchar(32),
     edu_addr varchar(32)  NOT NULL,
     interests ENUM('card_game','party','music'),
     bio text,

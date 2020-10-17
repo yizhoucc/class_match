@@ -1,6 +1,12 @@
 
 import pymysql
 import configparser
+from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash
+from flask_login import UserMixin
+import json
+import uuid
+
 config = configparser.ConfigParser()
 config.read(r'/home/maliao/.dbconfig')
 dbconf=dict(config.items('class_match'))
@@ -16,6 +22,77 @@ def valid_pass(info_dict,dbconf=dbconf):
     finally:
         connection.close()
     if info_dict['login_pass']==result['login_pass']:
+        return True
+    else:
+        return False
+
+
+def get_pass(info_dict,dbconf=dbconf):
+    connection=conn(dbconf)
+    try:
+        with connection.cursor() as cursor:
+            sql = "select `login_pass` from user_login where `login_name`=%s; "
+            cursor.execute(sql, (info_dict['login_name']))
+            result = cursor.fetchone()   
+    finally:
+        connection.close()
+    if result is not None:
+        return result['login_pass']
+    else:
+        return None
+
+def check_email(info_dict,dbconf=dbconf):
+    connection=conn(dbconf)
+    try:
+        # check edu addr
+        with connection.cursor() as cursor:
+            sql = "select `user_id`, `edu_addr` from `userinfo` where `edu_addr`=%s;"
+            cursor.execute(sql, (info_dict['edu_addr']))
+            result = cursor.fetchone()
+    finally:
+        connection.close()
+    if result is None:
+        return True
+
+def check_name(info_dict,dbconf=dbconf):
+    connection=conn(dbconf)
+    try:
+        with connection.cursor() as cursor:
+            sql = "select `login_name` from `user_login` where `login_name`=%s;"
+            cursor.execute(sql, (info_dict['login_name']))
+            result = cursor.fetchone()
+    finally:
+        connection.close()
+    if result is None:
+        return True
+
+
+
+
+
+def register_user(info_dict,dbconf=dbconf):
+    connection=conn(dbconf)
+    try:
+        with connection.cursor() as cursor:
+            sql = "INSERT INTO `user_login` (`login_name`, `login_pass`) values (%s, %s);"
+            cursor.execute(sql, (info_dict['login_name'],info_dict['login_pass']))
+        connection.commit()
+        with connection.cursor() as cursor:
+            sql = "select `user_id`,`login_pass` from `user_login` where `login_name`=%s;"
+            cursor.execute(sql, (info_dict['login_name']))
+            result = cursor.fetchone()
+        if info_dict['login_pass']==result['login_pass']:
+            with connection.cursor() as cursor:
+                sql="INSERT into `userinfo` (`user_id`, `edu_addr`) values (%s, %s);"
+                cursor.execute(sql, (result['user_id'],info_dict['edu_addr']))
+                connection.commit()
+            with connection.cursor() as cursor:
+                sql = "select `edu_addr` from `userinfo` where `user_id`=%s;"
+                cursor.execute(sql, (result['user_id']))
+                result2 = cursor.fetchone()
+    finally:
+        connection.close()
+    if info_dict['edu_addr']==result2['edu_addr']:
         return True
     else:
         return False
@@ -52,3 +129,74 @@ def dbselect(connection):
     finally:
         pass
     #     connection.close()
+
+def get_id(login_name, dbconf=dbconf):
+    connection=conn(dbconf)
+    try:
+        with connection.cursor() as cursor:
+            sql = "select `user_id` from `user_login` where `login_name`=%s;"
+            cursor.execute(sql, (login_name))
+            result = cursor.fetchone()
+    finally:
+        connection.close()
+    if result is not None:
+        return result['user_id']
+    else:
+        return None
+
+
+def get_name(user_id, dbconf=dbconf):
+    connection=conn(dbconf)
+    try:
+        with connection.cursor() as cursor:
+            sql = "select `login_name` from `user_login` where `user_id`=%s;"
+            cursor.execute(sql, (user_id))
+            result = cursor.fetchone()
+    finally:
+        connection.close()
+    if result is not None:
+        return result['login_name']
+    else:
+        return None
+
+
+class User(UserMixin):
+    def __init__(self, username):
+        self.username = username
+        # self.password_hash = self.get_password_hash()
+        self.id = get_id(username, dbconf=dbconf)
+
+    @property
+    def password(self):
+        raise AttributeError('password is not a readable attribute')
+
+    # @password.setter
+    # def password(self, password):
+    #     """save user name, id and password hash to json file"""
+    #     self.password_hash = generate_password_hash(password)
+    #     with open(PROFILE_FILE, 'w+') as f:
+    #         try:
+    #             profiles = json.load(f)
+    #         except ValueError:
+    #             profiles = {}
+    #         profiles[self.username] = [self.password_hash,
+    #                                    self.id]
+    #         f.write(json.dumps(profiles))
+
+    def verify_password(self, password):
+        if self.password_hash is None:
+            return False
+        return check_password_hash(self.password_hash, password)
+
+    def get_password_hash(self):
+        return get_pass({'login_name':self.username},dbconf=dbconf)
+
+
+    @classmethod
+    def get(self,user_id):
+        try:
+            username=get_name(user_id)
+            return User(username)
+        except:
+            return None
+

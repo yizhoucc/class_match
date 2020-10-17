@@ -16,12 +16,17 @@ class RegisterForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    username = StringField('用户名', validators=[DataRequired()])
-    password = PasswordField('密码', validators=[DataRequired()])
-    remember_me = BooleanField('记住我')
-    submit = SubmitField('登陆')
+    username = StringField('username', validators=[DataRequired()])
+    password = PasswordField('password', validators=[DataRequired()])
+    remember_me = BooleanField('remember_me')
+    submit = SubmitField('submit')
 
 
+class RegForm(FlaskForm):
+    username = StringField('username', validators=[DataRequired()])
+    password = StringField('password', validators=[DataRequired()])
+    eduaddr = StringField('eduaddr', validators=[DataRequired()])
+    submit = SubmitField('submit')
 
 
 #     wxid = StringField('Enter his/her Wechat ID', validators=[DataRequired()])
