@@ -17,7 +17,7 @@ CREATE or REPLACE TABLE userinfo(
     last_name varchar(16),
     first_name varchar(32),
     edu_addr varchar(32)  NOT NULL,
-    interests ENUM('card_game','party','music'),
+    -- interests ENUM('card_game','party','music'),
     bio text,
     date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP
 );

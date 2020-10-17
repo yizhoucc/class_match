@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Optional, Length
 
 class RegisterForm(FlaskForm):
     login_name=StringField('class_id', validators=[DataRequired()])
@@ -27,6 +27,23 @@ class RegForm(FlaskForm):
     password = StringField('password', validators=[DataRequired()])
     eduaddr = StringField('eduaddr', validators=[DataRequired()])
     submit = SubmitField('submit')
+
+
+class ProfileForm(FlaskForm):
+    first_name=StringField("firstname df: ", validators=[Optional(), Length(0, 255)])
+    last_name=StringField("lastname df: ", validators=[Optional(), Length(0, 255)])
+    bio=StringField("bio df: ", validators=[Optional(), Length(0, 255)])
+    submit = SubmitField('submit')
+
+
+
+class ClassForm(FlaskForm):
+    class1=StringField("class1: ", validators=[Optional(), Length(0, 255)])
+    class2=StringField("class2: ", validators=[Optional(), Length(0, 255)])
+    class3=StringField("class3: ", validators=[Optional(), Length(0, 255)])
+    submit = SubmitField('submit')
+
+
 
 
 #     wxid = StringField('Enter his/her Wechat ID', validators=[DataRequired()])

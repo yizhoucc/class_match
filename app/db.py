@@ -159,6 +159,128 @@ def get_name(user_id, dbconf=dbconf):
     else:
         return None
 
+def get_info(user_id, dbconf=dbconf):
+    connection=conn(dbconf)
+    try:
+        with connection.cursor() as cursor:
+            sql = "select * from userinfo where `user_id`=%s;"
+            cursor.execute(sql, (user_id))
+            result = cursor.fetchone()
+    finally:
+        connection.close()
+    if result is not None:
+        return result
+    else:
+        return None
+
+def update_info(form, user_id, dbconf=dbconf):
+    connection=conn(dbconf)
+    try:
+        with connection.cursor() as cursor:
+            sql = "update class_match.userinfo set first_name=%s, last_name=%s, bio=%s where user_id=%s;"
+            cursor.execute(sql, (form.first_name.data, form.last_name.data, form.bio.data, user_id))
+        connection.commit()
+        with connection.cursor() as cursor:
+            sql = "select * from userinfo where `user_id`=%s;"
+            cursor.execute(sql, (user_id))
+            result = cursor.fetchone()
+    finally:
+        connection.close()
+        return result
+
+def get_class(user_id, dbconf=dbconf):
+    connection=conn(dbconf)
+    try:
+        with connection.cursor() as cursor:
+            sql = "select `entry_id` from `class_students` where `user_id`=%s;"
+            cursor.execute(sql, (user_id))
+            result = cursor.fetchall()
+    finally:
+        connection.close()
+    if result is not None:
+        return result
+    else:
+        return None
+
+def is_new_class(form,dbconf=dbconf):
+    connection=conn(dbconf)
+    try:
+        with connection.cursor() as cursor:
+            sql = "select `entry_id` from `class_students` where `class_id`=%s;"
+            cursor.execute(sql, (form.class_id.data))
+            result = cursor.fetchone()
+    finally:
+        connection.close()
+    if result is not None:
+        return False
+    else:
+        return True
+
+def new_class(class_code,dbconf=dbconf):
+    connection=conn(dbconf)
+    try:
+        with connection.cursor() as cursor:
+            sql = "insert into `class_info` (`class_id`) values (%s);"
+            cursor.execute(sql, (class_code))
+        connection.commit()
+    finally:
+        connection.close()
+    if result is not None:
+        return result
+    else:
+        return None
+
+def get_class_id(class_code,dbconf=dbconf ):
+    connection=conn(dbconf)
+    try:
+        with connection.cursor() as cursor:
+            sql = "select `entry_id` from `class_info` where `class_id`=%s;"
+            cursor.execute(sql, (class_code))
+            result = cursor.fetchone()
+            entry_id=result['entry_id']
+    finally:
+        connection.close()
+    if entry_id is not None:
+        return entry_id
+
+def enroll_class(class_code,user_id,dbconf=dbconf):
+    connection=conn(dbconf)
+    try:
+        with connection.cursor() as cursor:
+            sql = "select `entry_id` from `class_info` where `class_id`=%s;"
+            cursor.execute(sql, (class_code))
+            result = cursor.fetchone()
+            entry_id=result['entry_id']
+        with connection.cursor() as cursor:
+            sql = "insert into `class_students` (`entry_id`, `user_id`) values (%s, %s);"
+            cursor.execute(sql, (entry_id,user_id))
+        connection.commit()
+        with connection.cursor() as cursor:
+            sql = "select `entry_id`,`user_id` from `class_students` where `user_id`=%s and entry_id=%s;"
+            cursor.execute(sql, ((user_id,entry_id)))
+            result = cursor.fetchone()
+    finally:
+        connection.close()
+    if result is not None:
+        return result
+    else:
+        return None
+
+
+def update_class(old_var, new_var, user_id, dbconf=dbconf):
+    connection=conn(dbconf)
+    try:
+        with connection.cursor() as cursor:
+            sql = "update class_students set entry_id=%s where user_id=%s and entry_id=%s;"
+            cursor.execute(sql, (new_var, user_id, old_var))
+        connection.commit()
+        with connection.cursor() as cursor:
+            sql = "select entry_id from class_students where user_id=%s and entry_id=%s;"
+            cursor.execute(sql, (user_id, new_var))
+            result = cursor.fetchone()
+    finally:
+        connection.close()
+        return result
 
 class User(UserMixin):
     def __init__(self, username):

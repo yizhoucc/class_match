@@ -1,9 +1,9 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, Response
 from app import app
 # from app.forms import InputForm
 from app.db import *
 # import requests
-
+from werkzeug.datastructures import MultiDict
 # # cp
 from app.forms import *
 from flask_wtf.csrf import CsrfProtect
@@ -70,25 +70,90 @@ def login():
 
 
 
-
-
+@app.route("/logout")
 @login_required
-@app.route('/')
-@app.route('/index')
-def index():
-    user = {'username': 'test'}
-    return render_template('index.html', title='secrete', user=user)
+def logout():
+    logout_user()
+    flash('!!! loged out')
+    return redirect(url_for('login'))
 
+
+@app.route('/')
+# @app.route('/index')
+@login_required
+def index():
+    user = {'username': current_user.username}
+    return render_template('index.html', title='Home', user=user)
+
+@app.route('/my_class')
+@login_required
+def userclass():    
+    flash('!!!my_class')
+    user = {'username': current_user.username}
+    infodict=get_class(current_user.id)
+    num_class=len(infodict)
+    flash(infodict)
+
+    if request.method == 'GET':
+        form=ProfileForm(formdata=MultiDict(infodict))   
+    else:
+        form = ProfileForm()
+
+    if form.validate_on_submit():
+        if is_new_class(form.class_id.data):
+            new_class(form.class_id.data) # record new class to db
+        total=3
+        i=0
+        while i < (num_class):
+            result=update_info(form,current_user.id)
+            flash('updated, current profile:')
+            flash(result)
+            i+=1
+        while i < total:
+            enroll_class(class_code[i],current_user.id)
+            i+=1
+    return render_template('userclass.html', title='my info',form=form)
+
+
+
+@app.route('/my_profile',methods=['GET', 'POST'])
+@login_required
+def userinfo():    
+    flash('!!!my_profile')
+    user = {'username': current_user.username}
+    infodict=get_info(current_user.id)
+    # flash(infodict)
+
+    if request.method == 'GET':
+        form=ProfileForm(formdata=MultiDict(infodict))   
+    else:
+        form = ProfileForm()
+
+    if form.validate_on_submit():
+        result=update_info(form,current_user.id)
+        flash('updated, current profile:')
+        flash(result)
+    return render_template('userinfo.html', title='my info',form=form)
+
+
+@app.route('/my_classmates')
+@login_required
+def class_match():    
+    flash('!!!my_classmates')
+    user = {'username': current_user.username}
+    return render_template('base.html', title='secrete')
 
 
 @app.route('/misc')
 @login_required
-def misc():    
+def misc():  
+    user = {'username': current_user.username}
     flash('!!!adfasdf')
     flash('!!!adfasdf')
     flash('!!!adfasdf')
     flash('!!!adfasdf')
     return render_template('base.html', title='secrete')
+
 
 @app.route('/register',methods=['GET', 'POST'])
 def reg():
@@ -109,12 +174,6 @@ def reg():
 
 
 
-
-# @app.route('/logout')
-# @login_required
-# def logout():
-#     logout_user()
-#     return redirect(url_for('login'))
 
 
 

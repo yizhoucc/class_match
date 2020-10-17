@@ -1,32 +1,35 @@
-
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>register</h1>
+    <h1>my profile</h1>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}<br>
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}<br>
-            {% for error in form.password.errors %}
+            {{ form.first_name.label }}<br>
+            {{ form.first_name(size=32) }}<br>
+            {% for error in form.first_name.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
 
         <p>
-            {{ form.eduaddr.label }}<br>
-            {{ form.eduaddr(size=32) }}<br>
-            {% for error in form.eduaddr.errors %}
+            {{ form.last_name.label }}<br>
+            {{ form.last_name(size=32) }}<br>
+            {% for error in form.last_name.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
+    
+
+        <p>
+            {{ form.bio.label }}<br>
+            {{ form.bio(size=32) }}<br>
+            {% for error in form.bio.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+
 
         <p>{{ form.submit() }}</p>
     </form>
