@@ -30,17 +30,17 @@ class RegForm(FlaskForm):
 
 
 class ProfileForm(FlaskForm):
-    first_name=StringField("firstname df: ", validators=[Optional(), Length(0, 255)])
-    last_name=StringField("lastname df: ", validators=[Optional(), Length(0, 255)])
-    bio=StringField("bio df: ", validators=[Optional(), Length(0, 255)])
+    first_name=StringField("firstname: ", validators=[Optional(), Length(0, 255)])
+    last_name=StringField("lastname: ", validators=[Optional(), Length(0, 255)])
+    bio=StringField("bio: ", validators=[Optional(), Length(0, 255)])
     submit = SubmitField('submit')
 
 
 
 class ClassForm(FlaskForm):
+    class0=StringField("class0: ", validators=[Optional(), Length(0, 255)])
     class1=StringField("class1: ", validators=[Optional(), Length(0, 255)])
     class2=StringField("class2: ", validators=[Optional(), Length(0, 255)])
-    class3=StringField("class3: ", validators=[Optional(), Length(0, 255)])
     submit = SubmitField('submit')
 
 

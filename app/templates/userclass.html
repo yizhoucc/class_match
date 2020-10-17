@@ -1,9 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Sign In</h1>
+    <h1>my classes</h1>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
+
+
+        <p>
+            {{ form.class0.label }}<br>
+            {{ form.class0(size=32) }}<br>
+            {% for error in form.class0.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+
         <p>
             {{ form.class1.label }}<br>
             {{ form.class1(size=32) }}<br>
@@ -18,13 +29,7 @@
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>
-            {{ form.class3.label }}<br>
-            {{ form.class3(size=32) }}<br>
-            {% for error in form.class3.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
+
         <p>{{ form.submit() }}</p>
     </form>
 {% endblock %}

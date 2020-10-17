@@ -192,7 +192,7 @@ def get_class(user_id, dbconf=dbconf):
     connection=conn(dbconf)
     try:
         with connection.cursor() as cursor:
-            sql = "select `entry_id` from `class_students` where `user_id`=%s;"
+            sql="select class_info.entry_id, class_info.class_id from class_info inner join class_students on class_info.entry_id=class_students.entry_id where class_students.user_id=%s;"
             cursor.execute(sql, (user_id))
             result = cursor.fetchall()
     finally:
@@ -202,12 +202,26 @@ def get_class(user_id, dbconf=dbconf):
     else:
         return None
 
-def is_new_class(form,dbconf=dbconf):
+def get_classcode(user_id, dbconf=dbconf):
     connection=conn(dbconf)
     try:
         with connection.cursor() as cursor:
-            sql = "select `entry_id` from `class_students` where `class_id`=%s;"
-            cursor.execute(sql, (form.class_id.data))
+            sql = "select class_id from class_info inner join class_students on class_info.entry_id=class_students.entry_id where class_students.user_id=%s;"
+            cursor.execute(sql, (user_id))
+            result = cursor.fetchall()
+    finally:
+        connection.close()
+    if result is not None:
+        return result
+    else:
+        return None
+
+def is_new_class(class_code,dbconf=dbconf):
+    connection=conn(dbconf)
+    try:
+        with connection.cursor() as cursor:
+            sql = "select entry_id from class_info where `class_id`=%s;"
+            cursor.execute(sql, (class_code))
             result = cursor.fetchone()
     finally:
         connection.close()
@@ -225,10 +239,10 @@ def new_class(class_code,dbconf=dbconf):
         connection.commit()
     finally:
         connection.close()
-    if result is not None:
-        return result
-    else:
-        return None
+    # if result is not None:
+    #     return result
+    # else:
+    #     return None
 
 def get_class_id(class_code,dbconf=dbconf ):
     connection=conn(dbconf)
@@ -271,16 +285,40 @@ def update_class(old_var, new_var, user_id, dbconf=dbconf):
     connection=conn(dbconf)
     try:
         with connection.cursor() as cursor:
-            sql = "update class_students set entry_id=%s where user_id=%s and entry_id=%s;"
+            sql = "select entry_id from class_info where class_id=%s"
+            cursor.execute(sql, (old_var))
+            old_var=cursor.fetchone()['entry_id']
+        with connection.cursor() as cursor:
+            sql = "select entry_id from class_info where class_id=%s"
+            cursor.execute(sql, (new_var))
+            new_var=cursor.fetchone()['entry_id']
+        with connection.cursor() as cursor:
+            sql = "update class_students set entry_id=%s where user_id=%s and entry_id=%s limit 1;"
+            # sql = "update class_students set entry_id=%s where user_id=%s and entry_id=%s and date_added < CURRENT_TIMESTAMP - INTERVAL 3 second;"
             cursor.execute(sql, (new_var, user_id, old_var))
         connection.commit()
-        with connection.cursor() as cursor:
-            sql = "select entry_id from class_students where user_id=%s and entry_id=%s;"
-            cursor.execute(sql, (user_id, new_var))
-            result = cursor.fetchone()
+        # with connection.cursor() as cursor:
+        #     sql = "select entry_id from class_students where user_id=%s and entry_id=%s;"
+        #     cursor.execute(sql, (user_id, new_var))
+        #     result = cursor.fetchone()
     finally:
         connection.close()
-        return result
+        # return result
+
+def get_classmates(user_id,entry_id, dbconf=dbconf):
+    connection=conn(dbconf)
+    try:
+        with connection.cursor() as cursor:
+            sql = "select * from userinfo inner join class_students on userinfo.user_id=class_students.user_id where class_students.entry_id=%s;"
+            cursor.execute(sql, (entry_id))
+            classmates=cursor.fetchall()
+    except:
+        classmates=[]
+    finally:
+        connection.close()
+    return classmates
+
+
 
 class User(UserMixin):
     def __init__(self, username):

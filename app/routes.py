@@ -85,33 +85,60 @@ def index():
     user = {'username': current_user.username}
     return render_template('index.html', title='Home', user=user)
 
-@app.route('/my_class')
+
+def classdict(sqldict, total=3):
+    returndict={}
+    i=0
+    while i<len(sqldict):
+        returndict['class{}'.format(str(i))]=sqldict[i]['class_id']
+        i+=1
+    while i< total:
+        returndict['class{}'.format(str(i))]=None
+        i+=1
+    return returndict
+
+
+
+@app.route('/my_class',methods=['GET', 'POST'])
 @login_required
 def userclass():    
     flash('!!!my_class')
     user = {'username': current_user.username}
-    infodict=get_class(current_user.id)
+    infodict=get_classcode(current_user.id)
     num_class=len(infodict)
+    flash('infodict')
     flash(infodict)
-
+    infodict=classdict(infodict, total=3)
+    flash(infodict)
     if request.method == 'GET':
-        form=ProfileForm(formdata=MultiDict(infodict))   
+        form=ClassForm(formdata=MultiDict(infodict))   
     else:
-        form = ProfileForm()
+        form = ClassForm()
 
     if form.validate_on_submit():
-        if is_new_class(form.class_id.data):
-            new_class(form.class_id.data) # record new class to db
+        formdict=request.form.to_dict()
+        flash('formdict')
+        flash(formdict)
         total=3
         i=0
+        # record new class to db
         while i < (num_class):
-            result=update_info(form,current_user.id)
-            flash('updated, current profile:')
-            flash(result)
+            if formdict['class{}'.format(str(i))] is not None:
+                if is_new_class(formdict['class{}'.format(str(i))]):
+                    new_class(formdict['class{}'.format(str(i))]) 
             i+=1
+        # update  
+        i=0
+        while i < (num_class):
+            result=update_class(infodict['class{}'.format(str(i))],formdict['class{}'.format(str(i))],current_user.id)
+            # flash('updated, current profile:')
+            # flash(result)
+            i+=1
+        # enrol
         while i < total:
-            enroll_class(class_code[i],current_user.id)
+            enroll_class(formdict['class{}'.format(str(i))],current_user.id)
             i+=1
+
     return render_template('userclass.html', title='my info',form=form)
 
 
@@ -122,7 +149,7 @@ def userinfo():
     flash('!!!my_profile')
     user = {'username': current_user.username}
     infodict=get_info(current_user.id)
-    # flash(infodict)
+    flash(infodict)
 
     if request.method == 'GET':
         form=ProfileForm(formdata=MultiDict(infodict))   
@@ -139,9 +166,15 @@ def userinfo():
 @app.route('/my_classmates')
 @login_required
 def class_match():    
-    flash('!!!my_classmates')
     user = {'username': current_user.username}
-    return render_template('base.html', title='secrete')
+    classes=get_class(current_user.id)
+    for oneclass in classes:
+        flash(oneclass['class_id'])
+        classmates=get_classmates(current_user.id, oneclass['entry_id'])
+        for a in classmates:
+                flash( [ a['first_name'],a['last_name'],a['bio'] ] )
+    return render_template('index.html', title='Home', user=user)
+
 
 
 @app.route('/misc')
