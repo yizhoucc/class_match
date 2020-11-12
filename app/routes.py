@@ -15,7 +15,7 @@ from flask_login import logout_user
 # # config
 import configparser
 config = configparser.ConfigParser()
-config.read(r'/home/maliao/.dbconfig')
+config.read(r'/home/dagongren/.dbconf')
 dbconf=dict(config.items('secret_key'))
 
 
@@ -65,10 +65,12 @@ def login():
         else:
             flash('!!! wrong pass')
         # return redirect(request.args.get('misc'))
-        return redirect(url_for('misc'))
-    return render_template('login.html',  title='Sign In', form=form)
+        return redirect(url_for('userclass'))
+    return render_template('login.html',  title='Class Match: Sign In', form=form)
 
-
+@app.route('/getstart')
+def start():
+    return render_template('getstart.html')
 
 @app.route("/logout")
 @login_required
@@ -83,7 +85,9 @@ def logout():
 @login_required
 def index():
     user = {'username': current_user.username}
-    return render_template('index.html', title='Home', user=user)
+    return redirect(url_for('userclass'))
+
+    # return render_template('index.html', title='Class Match: Home', user=user)
 
 
 def classdict(sqldict, total=3):
@@ -125,6 +129,8 @@ def userclass():
         while i < (num_class):
             if formdict['class{}'.format(str(i))] is not None:
                 if is_new_class(formdict['class{}'.format(str(i))]):
+                    flash('new class')
+                    flash(formdict['class{}'.format(str(i))])
                     new_class(formdict['class{}'.format(str(i))]) 
             i+=1
         # update  
@@ -139,7 +145,7 @@ def userclass():
             enroll_class(formdict['class{}'.format(str(i))],current_user.id)
             i+=1
 
-    return render_template('userclass.html', title='my info',form=form)
+    return render_template('userclass.html', title='Class Match: My Classes',form=form)
 
 
 
@@ -160,7 +166,7 @@ def userinfo():
         result=update_info(form,current_user.id)
         flash('updated, current profile:')
         flash(result)
-    return render_template('userinfo.html', title='my info',form=form)
+    return render_template('userinfo.html', title='Class Match: My Profile',form=form)
 
 
 @app.route('/my_classmates')
@@ -173,7 +179,7 @@ def class_match():
         classmates=get_classmates(current_user.id, oneclass['entry_id'])
         for a in classmates:
                 flash( [ a['first_name'],a['last_name'],a['bio'] ] )
-    return render_template('index.html', title='Home', user=user)
+    return render_template('index.html', title='Class Match: Home', user=user)
 
 
 
@@ -181,11 +187,7 @@ def class_match():
 @login_required
 def misc():  
     user = {'username': current_user.username}
-    flash('!!!adfasdf')
-    flash('!!!adfasdf')
-    flash('!!!adfasdf')
-    flash('!!!adfasdf')
-    return render_template('base.html', title='secrete')
+    return render_template('base.html', title='Class Match')
 
 
 @app.route('/register',methods=['GET', 'POST'])
@@ -202,7 +204,7 @@ def reg():
                 flash('name taken')
         else:
             flash('email already registered')
-    return render_template('reg.html',  title='Register', form=form)
+    return render_template('reg.html',  title='Class Match: Register', form=form)
 
 
 

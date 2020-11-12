@@ -139,58 +139,17 @@ nav ul li span:nth-child(4) {
         </div>
 
 
-    <h1>my classes</h1>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-
-
-        <p>
-            {{ form.class0.label }}<br>
-            {{ form.class0(size=32) }}<br>
-            {% for error in form.class0.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+        </div>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
             {% endfor %}
-        </p>
-
-
-        <p>
-            {{ form.class1.label }}<br>
-            {{ form.class1(size=32) }}<br>
-            {% for error in form.class1.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.class2.label }}<br>
-            {{ form.class2(size=32) }}<br>
-            {% for error in form.class2.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.class3.label }}<br>
-            {{ form.class3(size=32) }}<br>
-            {% for error in form.class3.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.class4.label }}<br>
-            {{ form.class4(size=32) }}<br>
-            {% for error in form.class4.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-
-        <p>
-            {{ form.class5.label }}<br>
-            {{ form.class5(size=32) }}<br>
-            {% for error in form.class5.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-
-        <p>{{ form.submit() }}</p>
-    </form>
-</body>
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
 </html>

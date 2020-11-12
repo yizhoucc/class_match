@@ -36,3 +36,7 @@ CREATE or REPLACE TABLE class_students(
     user_id int UNSIGNED NOT NULL,
     date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP
 );
+
+create user 'bot'@'localhost' identified by 'botpass';
+grant select, insert, update on class_match.* to 'bot'@'localhost';
+flush privileges;

@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired, Optional, Length
+from wtforms.validators import DataRequired, Optional, Length,EqualTo
+
 
 class RegisterForm(FlaskForm):
     login_name=StringField('class_id', validators=[DataRequired()])
@@ -24,7 +25,10 @@ class LoginForm(FlaskForm):
 
 class RegForm(FlaskForm):
     username = StringField('username', validators=[DataRequired()])
-    password = StringField('password', validators=[DataRequired()])
+    password = PasswordField('password', validators=[DataRequired(),
+                EqualTo('password_', message='Passwords must match')
+        ])
+    password_ = PasswordField('password repeat', validators=[DataRequired()])
     eduaddr = StringField('eduaddr', validators=[DataRequired()])
     submit = SubmitField('submit')
 
@@ -41,6 +45,9 @@ class ClassForm(FlaskForm):
     class0=StringField("class0: ", validators=[Optional(), Length(0, 255)])
     class1=StringField("class1: ", validators=[Optional(), Length(0, 255)])
     class2=StringField("class2: ", validators=[Optional(), Length(0, 255)])
+    class3=StringField("class3: ", validators=[Optional(), Length(0, 255)])
+    class4=StringField("class4: ", validators=[Optional(), Length(0, 255)])
+    class5=StringField("class5: ", validators=[Optional(), Length(0, 255)])
     submit = SubmitField('submit')
 
 

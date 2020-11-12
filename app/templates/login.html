@@ -1,25 +1,187 @@
 
-{% extends "base.html" %}
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} This is title</title>
+        {% else %}
+        <title>This is default title</title>
+        {% endif %}
+    </head>
+    <style>
+.button {background-color: white; color:#0B3954 ; 
+  border-radius: 8px;
+  border: white}
+.button:hover {
+  background-color: #FF6663; /* Green */
+  color: white;
+}
+.button1 {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: sans-serif;
+  background-color: #0B3954;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: white;
+  color: black;
+  border: 2px solid #0B3954; /* Green */
+  transition-duration: 0.4s;
+}
+.button1:hover {
+  background-color: #0B3954; /* Green */
+  color: white;
+}
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
 
-{% block content %}
-    <h1>Sign In</h1>
+nav ul li {
+    --c:  #0B3954;
+    color: var(--c);
+    font-size: 16px;
+    border: 0.45em solid var(--c);
+    border-radius: 0.5em;
+    width: 12em;
+    height: 3em;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: sans-serif;
+    letter-spacing: 0.1em;
+    text-align: center;
+    line-height: 3em;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    background-color:white;
+    transition: 0.5s;
+    margin: 1em;
+}
+
+nav ul li span {
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    background-color: var(--c);
+    transform: translateY(150%);
+    border-radius: 50%;
+    left: calc((var(--n) - 1) * 25%);
+    transition: 0.5s;
+    transition-delay: calc((var(--n) - 1) * 0.1s);
+    z-index: -1;
+}
+
+nav ul li:hover {
+    color: black;
+}
+
+nav ul li:hover span {
+    transform: translateY(0) scale(2);
+}
+
+nav ul li span:nth-child(1) {
+    --n: 1;
+}
+
+nav ul li span:nth-child(2) {
+    --n: 2;
+}
+
+nav ul li span:nth-child(3) {
+    --n: 3;
+}
+
+nav ul li span:nth-child(4) {
+    --n: 4;
+}
+
+.inv_button {
+  --c: #0B3954;
+    color: var(--c);
+    font-size: 16px;
+    border: 0.45em solid var(--c);
+    border: 0.45em 
+    border-radius: 0.5em;
+    width: 12em;
+    height: 3em;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: sans-serif;
+    letter-spacing: 0.1em;
+    text-align: center;
+  background-color: transparent; 
+  border-color: transparent; 
+  cursor: default;
+}
+.inv_button:hover {
+  background-color: transparent; border-color: transparent; cursor: default;
+  color: #E0FF4F;
+}
+</style>
+<script>
+    </script>
+    <body style="background-color:#BFD7EA;">
+        <div><center>
+            <a href="{{ url_for('index') }}" class="button1">Home</a>
+            <a href="{{ url_for('login') }}" class="button1">Login</a>
+            <a href="{{ url_for('reg') }}" class="button1">Register</a>
+        </center>
+        </div>
+
+        <div style="font-size:20px"><center>{% with messages = get_flashed_messages() %}</center></div>
+          <div style="font-size:20px"><center>{% if messages %}</center></div>
+        <ul>
+          <div style="font-size:20px"><center>{% for message in messages %}</center></div>
+          <div style="font-size:20px"><li><center>{{ message }}</center></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+
+
+
+
+
+
+
+        
+    <h1 style="font-size:35px; text-transform: uppercase; font-weight: bold; font-family: sans-serif;" for="username">Login</h1>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}<br>
+        <p style = " font-weight: bold; font-family: sans-serif;">
+          <label style="font-size:20px; font-weight: bold; font-family: sans-serif;" for="username" >USERNAME</label><br>
+          <input  font-weight: bold; font-family: sans-serif;" for="username" id="username" name="username" required="" size="32" type="text" value=""><br>
             {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span style="color: red;font-size: 10px">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}<br>
-            {% for error in form.password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+        <p style = " font-weight: bold; font-family: sans-serif;">
+          <label style="font-size:20px;  for="username" for="password">PASSWORD</label><br>
+          <input  for="username" id="password" name="password" required="" size="32" type="password" value=""><br>
+          {% for error in form.password.errors %}
+            <span style="color: red;font-size: 10px">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit() }}</p>
-    </form>
-{% endblock %}
+        <p style="font-size:15px; text-transform: uppercase; font-weight: bold; font-family: sans-serif;" for="username"><input id="remember_me" name="remember_me" type="checkbox" value="y"> <label for="remember_me ">Remember me</label></p>
+<nav>
+  <ul>
+    <li>
+      <span></span><span></span><span></span><span></span>   <input name="submit" type="submit" value="Login" class = inv_button>
+
+    </li>
+    </nav>
+  </ul>
+
+</form>
+</body>
+</html>

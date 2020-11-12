@@ -8,7 +8,7 @@ import json
 import uuid
 
 config = configparser.ConfigParser()
-config.read(r'/home/maliao/.dbconfig')
+config.read(r'/home/dagongren/.dbconf')
 dbconf=dict(config.items('class_match'))
 
 
@@ -220,7 +220,7 @@ def is_new_class(class_code,dbconf=dbconf):
     connection=conn(dbconf)
     try:
         with connection.cursor() as cursor:
-            sql = "select entry_id from class_info where `class_id`=%s;"
+            sql = "select entry_id from class_info where class_id=%s;"
             cursor.execute(sql, (class_code))
             result = cursor.fetchone()
     finally:
