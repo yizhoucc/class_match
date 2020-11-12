@@ -61,9 +61,9 @@ def login():
         if valid_pass({'login_name':form.username.data,'login_pass':form.password.data}):
             user = User(form.username.data)
             login_user(user)
-            flash('your name：{}，login sucess'.format(form.username.data))
+#            flash('your name：{}，login sucess'.format(form.username.data))
         else:
-            flash('!!! wrong pass')
+            flash('wrong pass')
         # return redirect(request.args.get('misc'))
         return redirect(url_for('userclass'))
     return render_template('login.html',  title='Class Match: Sign In', form=form)
@@ -76,7 +76,7 @@ def start():
 @login_required
 def logout():
     logout_user()
-    flash('!!! loged out')
+#    flash('loged out')
     return redirect(url_for('login'))
 
 
@@ -106,14 +106,14 @@ def classdict(sqldict, total=3):
 @app.route('/my_class',methods=['GET', 'POST'])
 @login_required
 def userclass():    
-    flash('!!!my_class')
+    # flash('!!!my_class')
     user = {'username': current_user.username}
     infodict=get_classcode(current_user.id)
     num_class=len(infodict)
-    flash('infodict')
-    flash(infodict)
+    # flash('infodict')
+    # flash(infodict)
     infodict=classdict(infodict, total=3)
-    flash(infodict)
+    # flash(infodict)
     if request.method == 'GET':
         form=ClassForm(formdata=MultiDict(infodict))   
     else:
@@ -121,16 +121,16 @@ def userclass():
 
     if form.validate_on_submit():
         formdict=request.form.to_dict()
-        flash('formdict')
-        flash(formdict)
+        # flash('formdict')
+        # flash(formdict)
         total=3
         i=0
         # record new class to db
         while i < (num_class):
             if formdict['class{}'.format(str(i))] is not None:
                 if is_new_class(formdict['class{}'.format(str(i))]):
-                    flash('new class')
-                    flash(formdict['class{}'.format(str(i))])
+                    # flash('new class')
+                    # flash(formdict['class{}'.format(str(i))])
                     new_class(formdict['class{}'.format(str(i))]) 
             i+=1
         # update  
@@ -144,7 +144,7 @@ def userclass():
         while i < total:
             enroll_class(formdict['class{}'.format(str(i))],current_user.id)
             i+=1
-
+        flash('recorded')
     return render_template('userclass.html', title='Class Match: My Classes',form=form)
 
 
@@ -152,10 +152,10 @@ def userclass():
 @app.route('/my_profile',methods=['GET', 'POST'])
 @login_required
 def userinfo():    
-    flash('!!!my_profile')
+    # flash('!!!my_profile')
     user = {'username': current_user.username}
     infodict=get_info(current_user.id)
-    flash(infodict)
+    # flash(infodict)
 
     if request.method == 'GET':
         form=ProfileForm(formdata=MultiDict(infodict))   
@@ -164,8 +164,10 @@ def userinfo():
 
     if form.validate_on_submit():
         result=update_info(form,current_user.id)
-        flash('updated, current profile:')
-        flash(result)
+        # flash('updated, current profile:')
+        # flash(result)
+        flash('recorded')
+
     return render_template('userinfo.html', title='Class Match: My Profile',form=form)
 
 
@@ -174,12 +176,18 @@ def userinfo():
 def class_match():    
     user = {'username': current_user.username}
     classes=get_class(current_user.id)
+    flash(u'►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄')
     for oneclass in classes:
-        flash(oneclass['class_id'])
+        flash(oneclass['class_id']  )
+        flash(u'======')
         classmates=get_classmates(current_user.id, oneclass['entry_id'])
         for a in classmates:
-                flash( [ a['first_name'],a['last_name'],a['bio'] ] )
-    return render_template('index.html', title='Class Match: Home', user=user)
+                
+                flash(a['first_name'] + " " + a['last_name']  )
+                flash(" contact by:" +  a['bio'])
+                flash(u'——————————')
+        flash(u'►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄')
+    return render_template('base.html', title='Class Match: My Classmates', user=user)
 
 
 
