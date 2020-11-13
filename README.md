@@ -1,6 +1,8 @@
 # Classmatch
 For submission to YHack 2020
 
+![alt text](https://github.com/yizhoucc/class_match/blob/master/interface.png)
+
 ## Team members
 Yizhou Chen,
 Facheng Guo,
