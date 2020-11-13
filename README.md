@@ -1,5 +1,5 @@
 # Classmatch
-YHack 2020
+For submission to YHack 2020
 
 ## Team members
 Yizhou Chen,
@@ -10,13 +10,13 @@ Daming Li
 The pandemic of COVID-19 has a severe negative impact on the learning experience at school. Students have significantly fewer chances to know and to interact with classmates. Whereas websites such as Canvas and Piazza are useful tools for pedagogical purposes, an application integrating formal learning and informal conversations or discussions is missing. Based on such considerations, we aimed at building a website "Classmatch", which allows students to connect based on the common courses taken and to know each other better through academic or non-academic discussions in class chatrooms. 
 
 ## What Classmatch does
-
+Classmatch, in its current basic version, achieves the following functionalities: Creation of an account; Login/Logout; Enter personal information; Enter course titles; See name and contact information of those who are in the same classes with you.
 
 ## How we built Classmatch
 The application was built uin the framework of Flask. User and class information are kept in database using MySQL. The front end was built using CSS and Javascript.
 
 ## What's next for Classmatch
-Apparently, fulfilling all the key features of this application is a big project and the vision can go more ambitious. The short term goal is make the fundamental functionalities more robust and more secure. Next, we would implement the chatting features and create metrics to monitor user interactions.
+Apparently, fulfilling all the key features of this application is a big project and the vision can go more ambitious. The short term goal is to make the application more secure by verifying the edu mailing address and gives the user to selectively show personal information. A personal webpage for each registered user is going to be added. Next, we would implement the chatting features (starting from a Say Hi feature) and create metrics to monitor user interactions and enhance user engagement.
 
 ## Challenges we ran into
 
@@ -29,5 +29,5 @@ This is a large-scale project and completing all the core functionalities appare
 - Project management (initial design, collaborative work, testing)
 
 ## Try it out!
-Open a browser and type http://66.228.46.150:8080/getstart, then follow the instructions.
+Open http://66.228.46.150:8080/getstart, then follow the instructions.
 
