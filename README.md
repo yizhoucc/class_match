@@ -13,7 +13,7 @@ The pandemic of COVID-19 has a severe negative impact on the learning experience
 Classmatch, in its current basic version, achieves the following functionalities: Creation of an account; Login/Logout; Enter personal information; Enter course titles; See name and contact information of those who are in the same classes with you.
 
 ## How we built Classmatch
-The application was built uin the framework of Flask. User and class information are kept in database using MySQL. The front end was built using CSS and Javascript.
+The application was built in the framework of Flask. User and class information are kept in database using MySQL. The front end was built using CSS and Javascript.
 
 ## What's next for Classmatch
 Apparently, fulfilling all the key features of this application is a big project and the vision can go more ambitious. The short term goal is to make the application more secure by verifying the edu mailing address and gives the user to selectively show personal information. A personal webpage for each registered user is going to be added. Next, we would implement the chatting features (starting from a Say Hi feature) and create metrics to monitor user interactions and enhance user engagement.
