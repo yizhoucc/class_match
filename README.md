@@ -13,15 +13,21 @@ The pandemic of COVID-19 has a severe negative impact on the learning experience
 
 
 ## How we built Classmatch
-The application was built using the framework of Flask. User and class information was written to database using MySQL. The front end was built using CSS and Javascript.
+The application was built uin the framework of Flask. User and class information are kept in database using MySQL. The front end was built using CSS and Javascript.
 
 ## What's next for Classmatch
 Apparently, fulfilling all the key features of this application is a big project and the vision can go more ambitious. The short term goal is make the fundamental functionalities more robust and more secure. Next, we would implement the chatting features and create metrics to monitor user interactions.
 
+## Challenges we ran into
+
 ## Accomplishments that we are proud of
-This is a large-scale project and completing all the core functionalities apparently requires more time than a mere week. We knew this well in mind, and are proud to have established a rudimentary version of it under time pressure.
+This is a large-scale project and completing all the core functionalities apparently requires more time than a mere week. We knew this well in mind, and are proud to have established a rudimentary version of it under time pressure. Our system manages user and course information consistently under updates and insertions.
 
 ## What we learned
+- Product and UI design
 - Various technical skills for building a web application from scratch
 - Project management (initial design, collaborative work, testing)
+
+## Try it out!
+Open a browser and type http://66.228.46.150:8080/getstart, then follow the instructions.
 
