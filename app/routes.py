@@ -58,14 +58,18 @@ csrf.init_app(app)
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if valid_pass({'login_name':form.username.data,'login_pass':form.password.data}):
-            user = User(form.username.data)
-            login_user(user)
-#            flash('your name：{}，login sucess'.format(form.username.data))
+        if get_id(form.username.data):
+            if valid_pass({'login_name':form.username.data,'login_pass':form.password.data}):
+                user = User(form.username.data)
+                login_user(user)
+    #            flash('your name：{}，login sucess'.format(form.username.data))
+            else:
+                flash('wrong pass')
+            # return redirect(request.args.get('misc'))
+            return redirect(url_for('userclass'))
         else:
-            flash('wrong pass')
-        # return redirect(request.args.get('misc'))
-        return redirect(url_for('userclass'))
+            flash('no such user')
+
     return render_template('login.html',  title='Class Match: Sign In', form=form)
 
 @app.route('/getstart')
@@ -129,8 +133,8 @@ def userclass():
         while i < (num_class):
             if formdict['class{}'.format(str(i))] is not None:
                 if is_new_class(formdict['class{}'.format(str(i))]):
-                    # flash('new class')
-                    # flash(formdict['class{}'.format(str(i))])
+#                    flash('new class')
+                    # flash(is_new_class(formdict['class{}'.format(str(i))]))
                     new_class(formdict['class{}'.format(str(i))]) 
             i+=1
         # update  
@@ -144,7 +148,7 @@ def userclass():
         while i < total:
             enroll_class(formdict['class{}'.format(str(i))],current_user.id)
             i+=1
-        flash('recorded')
+        flash('RECORDED')
     return render_template('userclass.html', title='Class Match: My Classes',form=form)
 
 
@@ -166,7 +170,7 @@ def userinfo():
         result=update_info(form,current_user.id)
         # flash('updated, current profile:')
         # flash(result)
-        flash('recorded')
+        flash('RECORDED')
 
     return render_template('userinfo.html', title='Class Match: My Profile',form=form)
 
@@ -178,15 +182,16 @@ def class_match():
     classes=get_class(current_user.id)
     flash(u'►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄')
     for oneclass in classes:
-        flash(oneclass['class_id']  )
-        flash(u'======')
-        classmates=get_classmates(current_user.id, oneclass['entry_id'])
-        for a in classmates:
-                
-                flash(a['first_name'] + " " + a['last_name']  )
-                flash(" contact by:" +  a['bio'])
-                flash(u'——————————')
-        flash(u'►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄')
+        if oneclass['class_id'] != '':
+            flash(oneclass['class_id']  )
+            flash(u'======')
+            classmates=get_classmates(current_user.id, oneclass['entry_id'])
+            for a in classmates:
+                if a['first_name'] is not None and a['last_name'] is not None:
+                    flash(a['first_name'] + " " + a['last_name']  )
+                    flash(" contact by: " +  a['bio'])
+                    flash(u'——————————')
+            flash(u'►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄')
     return render_template('base.html', title='Class Match: My Classmates', user=user)
 
 
@@ -207,11 +212,11 @@ def reg():
         if check_email(infodict):
             if check_name(infodict):
                 register_user(infodict)
-                flash('registered')
+                flash('REGISTERED')
             else:
-                flash('name taken')
+                flash('YOU CANNOT USE THIS USERNAME')
         else:
-            flash('email already registered')
+            flash('THIS EMAIL IS ALREADY REGISTERED')
     return render_template('reg.html',  title='Class Match: Register', form=form)
 
 

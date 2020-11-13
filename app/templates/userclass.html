@@ -1,229 +1,303 @@
 
 <html>
-    <head>
-        {% if title %}
-        <title>{{ title }} This is title</title>
-        {% else %}
-        <title>This is default title</title>
-        {% endif %}
-    </head>
-    <style>
+  <head>
+      {% if title %}
+      <title> CLASS-MATCH!</title>
+      {% else %}
+      {% endif %}
+  </head>
+  <style>
+        div {
+   background: rgba(255, 255, 255, 0.3); 
+}
 .button {background-color: white; color:#0B3954 ; 
-  border-radius: 8px;
-  border: white}
+border-radius: 8px;
+border: white}
 .button:hover {
-  background-color: #FF6663; /* Green */
-  color: white;
+background-color: #FF6663; /* Green */
+color: white;
 }
 .button1 {
-  text-transform: uppercase;
-  font-weight: bold;
-  font-family: sans-serif;
-  background-color: #0B3954;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 8px;
-  background-color: white;
-  color: black;
-  border: 2px solid #0B3954; /* Green */
-  transition-duration: 0.4s;
+text-transform: uppercase;
+font-weight: bold;
+font-family: sans-serif;
+background-color: #0B3954;
+border: none;
+color: white;
+padding: 15px 32px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 4px 2px;
+cursor: pointer;
+border-radius: 8px;
+background-color: white;
+color: black;
+border: 2px solid #0B3954; /* Green */
+transition-duration: 0.4s;
 }
 .button1:hover {
-  background-color: #0B3954; /* Green */
-  color: white;
+background-color: #0B3954; /* Green */
+color: white;
 }
 
 .button2 {
-  text-transform: uppercase;
-  font-weight: bold;
-  font-family: sans-serif;
-  background-color: #FF6663;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 8px;
-  background-color: white;
-  color: black;
-  border: 2px solid #FF6663; /* Green */
-  transition-duration: 0.4s;
+text-transform: uppercase;
+font-weight: bold;
+font-family: sans-serif;
+background-color: #BFD7EA;
+border: none;
+color: white;
+padding: 15px 32px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 4px 2px;
+cursor: pointer;
+border-radius: 8px;
+background-color: white;
+color: black;
+border: 2px solid #BFD7EA; /* Green */
+transition-duration: 0.4s;
 }
 .button2:hover {
-  background-color: #FF6663; /* Green */
-  color: white;
+background-color: #BFD7EA; /* Green */
+color: #2F27EA;
+border: 2px solid black;
+}
+.button3 {
+text-transform: uppercase;
+font-weight: bold;
+font-family: sans-serif;
+background-color: #E0FF4F;
+border: none;
+color: white;
+padding: 15px 32px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 4px 2px;
+cursor: pointer;
+border-radius: 8px;
+background-color: white;
+color: black;
+border: 2px solid #E0FF4F; /* Green */
+transition-duration: 0.4s;
+}
+.button3:hover {
+background-color: #E0FF4F; /* Green */
+color: #E04F4F;
+}
+.button4 {
+text-transform: uppercase;
+font-weight: bold;
+font-family: sans-serif;
+background-color: #FF6663;
+border: none;
+color: white;
+padding: 15px 32px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 4px 2px;
+cursor: pointer;
+border-radius: 8px;
+background-color: white;
+color: black;
+border: 2px solid #FF6663; /* Green */
+transition-duration: 0.4s;
+}
+.button4:hover {
+background-color: #FF6663; /* Green */
+color: white;
 }
 nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 nav ul li {
-    --c:  #0B3954;
-    color: var(--c);
-    font-size: 16px;
-    border: 0.45em solid var(--c);
-    border-radius: 0.5em;
-    width: 12em;
-    height: 3em;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-family: sans-serif;
-    letter-spacing: 0.1em;
-    text-align: center;
-    line-height: 3em;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    background-color:white;
-    transition: 0.5s;
-    margin: 1em;
-}
+  --c:  #FF6663;
+  color: var(--c);
+  font-size: 16px;
+  border: 0.45em solid #0B3954;
+  border-radius: 0.5em;
+  width: 12em;
+  height: 3em;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: sans-serif;
+  letter-spacing: 0.1em;
+  text-align: center;
+  line-height: 3em;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  background-color:white;
+  transition: 0.5s;
+  margin: 1em;
+} 
 
 nav ul li span {
-    position: absolute;
-    width: 25%;
-    height: 100%;
-    background-color: var(--c);
-    transform: translateY(150%);
-    border-radius: 50%;
-    left: calc((var(--n) - 1) * 25%);
-    transition: 0.5s;
-    transition-delay: calc((var(--n) - 1) * 0.1s);
-    z-index: -1;
+  position: absolute;
+  width: 25%;
+  height: 100%;
+  background-color: var(--c);
+  transform: translateY(150%);
+  border-radius: 50%;
+  left: calc((var(--n) - 1) * 25%);
+  transition: 0.5s;
+  transition-delay: calc((var(--n) - 1) * 0.1s);
+  z-index: -1;
+
 }
 
 nav ul li:hover {
-    color: black;
+  color: black;
 }
 
 nav ul li:hover span {
-    transform: translateY(0) scale(2);
+  transform: translateY(0) scale(2);
 }
 
 nav ul li span:nth-child(1) {
-    --n: 1;
+  --n: 1;
+  background-color: #0B3954;
 }
 
 nav ul li span:nth-child(2) {
-    --n: 2;
+  --n: 2;
+  background-color: #BFD7EA;
+
 }
 
 nav ul li span:nth-child(3) {
-    --n: 3;
+  --n: 3;
+  background-color: #E0FF4F;
 }
 
 nav ul li span:nth-child(4) {
-    --n: 4;
+  --n: 4;
+  background-color: #FF6663;
 }
 
 .inv_button {
-  --c: #0B3954;
-    color: var(--c);
-    font-size: 16px;
-    border: 0.45em solid var(--c);
-    border: 0.45em 
-    border-radius: 0.5em;
-    width: 12em;
-    height: 3em;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-family: sans-serif;
-    letter-spacing: 0.1em;
-    text-align: center;
-  background-color: transparent; 
-  border-color: transparent; 
-  cursor: default;
+--c: #BF0C00;
+  color: var(--c);
+  font-size: 16px;
+  border: 0.45em solid var(--c);
+  border: 0.45em 
+  border-radius: 0.5em;
+  width: 12em;
+  height: 3em;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: sans-serif;
+  letter-spacing: 0.1em;
+  text-align: center;
+background-color: transparent; 
+border-color: transparent; 
+cursor: default;
 }
 .inv_button:hover {
-  background-color: transparent; border-color: transparent; cursor: default;
-  color: #E0FF4F;
+background-color: transparent; border-color: transparent; cursor: default;
+color: #00356B;
 }
+body {background-image:url('https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');}
+
 </style>
 <script>
-    </script>
-    <body style="background-color:#BFD7EA;">
-        <div><center>
-            <a href="{{ url_for('userclass') }}" class="button1">My class</a>
-            <a href="{{ url_for('userinfo') }}" class="button1">My info</a>
-            <a href="{{ url_for('class_match') }}" class="button1">My classmates</a>
-            <a href="{{ url_for('logout') }}" class="button2">Logout</a>
-        </div>
-
-    <h1><center>my classes</center></h1>
-    <form action="" method="post" novalidate><center>
+  </script>
+  <body style="background-color:#BFD7EA;">
+      <p><center>
+          <a href="{{ url_for('userclass') }}" class="button1">My class</a>
+          <a href="{{ url_for('userinfo') }}" class="button2">My info</a>
+          <a href="{{ url_for('class_match') }}" class="button3">My classmates</a>
+          <a href="{{ url_for('logout') }}" class="button4">Logout</a>
+      </center>
+    </p>
+<div>
+    <h1 style="font-size:35px; text-transform: uppercase; font-weight: bold; font-family: sans-serif;" for="username"><center>my classes</center></h1>
+    <form action="http://66.228.46.150:8080/my_class" method="post" novalidate=""><center>
         {{ form.hidden_tag() }}
 
 
-        <p>
-            {{ form.class0.label }}<br>
-            {{ form.class0(size=32) }}<br>
+        <p style="font-size:20px; font-weight: bold; font-family: sans-serif;">
+            <label for="class0">CLASS I</label><br>
+          <input id="class0" name="class0" size="32" type="text"  {{ form.class0 }}<br>
             {% for error in form.class0.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
 
 
-        <p>
-            {{ form.class1.label }}<br>
-            {{ form.class1(size=32) }}<br>
+        <p style="font-size:20px; font-weight: bold; font-family: sans-serif;">
+            <label for="class1">CLASS II</label><br>
+            <input id="class1" name="class1" size="32" type="text" {{ form.class1 }}<br>
             {% for error in form.class1.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>
-            {{ form.class2.label }}<br>
-            {{ form.class2(size=32) }}<br>
+        <p style="font-size:20px; font-weight: bold; font-family: sans-serif;">
+            <label for="class2">CLASS III</label><br>
+            <input id="class2" name="class2" size="32" type="text" {{ form.class2 }}<br>
             {% for error in form.class2.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>
-            {{ form.class3.label }}<br>
-            {{ form.class3(size=32) }}<br>
+        <p style="font-size:20px; font-weight: bold; font-family: sans-serif;">
+            <label for="class3">CLASS IV</label><br>
+            <input id="class3" name="class3" size="32" type="text" {{ form.class3 }}<br>
             {% for error in form.class3.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>
-            {{ form.class4.label }}<br>
-            {{ form.class4(size=32) }}<br>
+        <p style="font-size:20px; font-weight: bold; font-family: sans-serif;">
+            <label for="class4">CLASS V</label><br>
+            <input id="class4" name="class4" size="32" type="text" {{ form.class4 }}<br>
             {% for error in form.class4.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>
-            {{ form.class5.label }}<br>
-            {{ form.class5(size=32) }}<br>
+        <p style="font-size:20px; font-weight: bold; font-family: sans-serif;">
+            <label for="class5">CLASS VI</label><br>
+            <input id="class5" name="class5" size="32" type="text" {{ form.class5 }}<br>
             {% for error in form.class5.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>{{ form.submit() }}</p></center>
-    </form>
-    <div><center>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-        <a style="list-style-type:none"><br>{{ message }}</a>
-        {% endfor %}
-    {% endif %}
-    {% endwith %}
-    {% block content %}{% endblock %}
+    </center>
+<center>
+<nav>
+  <ul>
+    <li>
+      <span></span><span></span><span></span><span></span>   <input  name="submit" type="submit" value="SUBMIT" class = inv_button>
+
+    </li>
+    </nav>
+  </ul>  
 </center>
 </div>
+    </form>
+    <div  style="font-size:20px; font-weight: bold; font-family: sans-serif;"><center>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div>
+            {% for message in messages %}
+            <a style="list-style-type:none"><br>{{ message }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </center>
+  </div>
+  
 
 </body>
 </html>

@@ -2,9 +2,8 @@
 <html>
     <head>
         {% if title %}
-        <title>{{ title }} This is title</title>
+        <title> CLASS-MATCH!</title>
         {% else %}
-        <title>This is default title</title>
         {% endif %}
     </head>
     <style>
@@ -46,10 +45,10 @@ nav ul {
 }
 
 nav ul li {
-    --c:  #0B3954;
+    --c:  #FF6663;
     color: var(--c);
     font-size: 16px;
-    border: 0.45em solid var(--c);
+    border: 0.45em solid #0B3954;
     border-radius: 0.5em;
     width: 12em;
     height: 3em;
@@ -78,6 +77,7 @@ nav ul li span {
     transition: 0.5s;
     transition-delay: calc((var(--n) - 1) * 0.1s);
     z-index: -1;
+ 
 }
 
 nav ul li:hover {
@@ -90,22 +90,27 @@ nav ul li:hover span {
 
 nav ul li span:nth-child(1) {
     --n: 1;
+    background-color: #0B3954;
 }
 
 nav ul li span:nth-child(2) {
     --n: 2;
+    background-color: #BFD7EA;
+
 }
 
 nav ul li span:nth-child(3) {
     --n: 3;
+    background-color: #FF6663;
 }
 
 nav ul li span:nth-child(4) {
     --n: 4;
+    background-color: #E0FF4F;
 }
 
 .inv_button {
-  --c: #0B3954;
+  --c: #BF0C00;
     color: var(--c);
     font-size: 16px;
     border: 0.45em solid var(--c);
@@ -124,8 +129,10 @@ nav ul li span:nth-child(4) {
 }
 .inv_button:hover {
   background-color: transparent; border-color: transparent; cursor: default;
-  color: #E0FF4F;
+  color: #00356B;
 }
+body {background-image:url('https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');}
+
 </style>
 <script>
     </script>
@@ -176,24 +183,24 @@ nav ul li span:nth-child(4) {
         <nav>
             <ul>
               <li>
-                <span></span><span></span><span></span><span></span>   <input name="submit" type="submit" value="CREAT ACCOUNT" class = inv_button>
+                <span></span><span></span><span></span><span></span>   <input name="submit" type="submit" value="CREAT NOW!" class = inv_button>
           
               </li>
               </nav>
             </ul></center>
     </form>
-    <div>
+    <div  style="font-size:20px; font-weight: bold; font-family: sans-serif;"><center>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-        {% for message in messages %}
-        <a style="list-style-type:none"><br>{{ message }}</a>
-        {% endfor %}
-    </div>
-    {% endif %}
-    {% endwith %}
-    {% block content %}{% endblock %}
-</center>
+        <div>
+            {% for message in messages %}
+            <a style="list-style-type:none"><br>{{ message }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </center>
 </div>
-
 </body>
 </html>

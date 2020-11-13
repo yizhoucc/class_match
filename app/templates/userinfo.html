@@ -2,12 +2,32 @@
 <html>
     <head>
         {% if title %}
-        <title>{{ title }} This is title</title>
+        <title> CLASS-MATCH!</title>
         {% else %}
-        <title>This is default title</title>
         {% endif %}
     </head>
     <style>
+              div {
+   background: rgba(255, 255, 255, 0.3); 
+}
+                  html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                background-color: green;
+            }
+            #container {
+                width: inherit;
+                height: inherit;
+                margin: 0;
+                padding: 0;
+                background-color: pink;
+            }
+            h1 {
+                margin: 0;
+                padding: 0;
+            }
 .button {background-color: white; color:#0B3954 ; 
   border-radius: 8px;
   border: white}
@@ -44,6 +64,55 @@
   text-transform: uppercase;
   font-weight: bold;
   font-family: sans-serif;
+  background-color: #BFD7EA;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: white;
+  color: black;
+  border: 2px solid #BFD7EA; /* Green */
+  transition-duration: 0.4s;
+}
+.button2:hover {
+  background-color: #BFD7EA; /* Green */
+  color: #2F27EA;
+  border: 2px solid black;
+}
+.button3 {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: sans-serif;
+  background-color: #E0FF4F;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: white;
+  color: black;
+  border: 2px solid #E0FF4F; /* Green */
+  transition-duration: 0.4s;
+}
+.button3:hover {
+  background-color: #E0FF4F; /* Green */
+  color: #E04F4F;
+}
+.button4 {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: sans-serif;
   background-color: #FF6663;
   border: none;
   color: white;
@@ -60,7 +129,7 @@
   border: 2px solid #FF6663; /* Green */
   transition-duration: 0.4s;
 }
-.button2:hover {
+.button4:hover {
   background-color: #FF6663; /* Green */
   color: white;
 }
@@ -71,10 +140,10 @@ nav ul {
 }
 
 nav ul li {
-    --c:  #0B3954;
+    --c:  #FF6663;
     color: var(--c);
     font-size: 16px;
-    border: 0.45em solid var(--c);
+    border: 0.45em solid #0B3954;
     border-radius: 0.5em;
     width: 12em;
     height: 3em;
@@ -103,6 +172,7 @@ nav ul li span {
     transition: 0.5s;
     transition-delay: calc((var(--n) - 1) * 0.1s);
     z-index: -1;
+ 
 }
 
 nav ul li:hover {
@@ -115,22 +185,27 @@ nav ul li:hover span {
 
 nav ul li span:nth-child(1) {
     --n: 1;
+    background-color: #0B3954;
 }
 
 nav ul li span:nth-child(2) {
     --n: 2;
+    background-color: #BFD7EA;
+
 }
 
 nav ul li span:nth-child(3) {
     --n: 3;
+    background-color: #E0FF4F;
 }
 
 nav ul li span:nth-child(4) {
     --n: 4;
+    background-color: #FF6663;
 }
 
 .inv_button {
-  --c: #0B3954;
+  --c: #BF0C00;
     color: var(--c);
     font-size: 16px;
     border: 0.45em solid var(--c);
@@ -149,43 +224,47 @@ nav ul li span:nth-child(4) {
 }
 .inv_button:hover {
   background-color: transparent; border-color: transparent; cursor: default;
-  color: #E0FF4F;
+  color: #00356B;
 }
+body {background-image:url('https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');}
 </style>
+
+
 <script>
     </script>
     <body style="background-color:#BFD7EA;">
-        <div><center>
+        <p><center>
             <a href="{{ url_for('userclass') }}" class="button1">My class</a>
-            <a href="{{ url_for('userinfo') }}" class="button1">My info</a>
-            <a href="{{ url_for('class_match') }}" class="button1">My classmates</a>
-            <a href="{{ url_for('logout') }}" class="button2">Logout</a>
+            <a href="{{ url_for('userinfo') }}" class="button2">My info</a>
+            <a href="{{ url_for('class_match') }}" class="button3">My classmates</a>
+            <a href="{{ url_for('logout') }}" class="button4">Logout</a>
         </center>
-        </div>
+      </p>
 <div><center>
-    <h1>my profile</h1>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.first_name.label }}<br>
-            {{ form.first_name(size=32) }}<br>
+    <h1 style="font-size:35px; text-transform: uppercase; font-weight: bold; font-family: sans-serif;">my profile</h1>
+    <form action="http://66.228.46.150:8080/my_profile" method="post" novalidate="">
+      {{ form.hidden_tag() }}
+        <p style="font-size:20px; font-weight: bold; font-family: sans-serif;">
+          <label for="first_name">FIRSTNAME</label><br>
+          <input id="first_name" name="first_name" size="32" type="text" {{ form.first_name }}<br>
             {% for error in form.first_name.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
 
-        <p>
-            {{ form.last_name.label }}<br>
-            {{ form.last_name(size=32) }}<br>
+        <p style="font-size:20px; font-weight: bold; font-family: sans-serif;">
+          <label for="last_name">LASTNAME</label><br>
+          <input id="last_name" name="last_name" size="32" type="text" {{ form.last_name }}<br>
             {% for error in form.last_name.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
     
 
-        <p>
-            {{ form.bio.label }}<br>
-            {{ form.bio(size=32) }}<br>
+        <p style="font-size:20px; font-weight: bold; font-family: sans-serif;">
+          <label for="bio">CONTACT INFO </label><br>
+          <label style="font-size:14px" for="bio">(EMAIL/FACEBOOK/WHATSAPP AND SO ON) </label><br>
+          <input id="bio" name="bio" size="32" type="text" {{ form.bio }}<br>
             {% for error in form.bio.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
@@ -193,8 +272,37 @@ nav ul li span:nth-child(4) {
 
 
 
-        <p>{{ form.submit() }}</p>
-      </center></div>
-    </form>
+      </center>
+   <center>
+      <nav>
+        <ul>
+          <li>
+            <span></span><span></span><span></span><span></span>   <input  name="submit" type="submit" value="SUBMIT" class = inv_button>
+      
+          </li>
+          </nav>
+        </ul>  
+      </center> </div>
+        <div  style="font-size:20px; font-weight: bold; font-family: sans-serif;">
+          </form>
+
+    <div  style="font-size:20px; font-weight: bold; font-family: sans-serif;"><center>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <div>
+          {% for message in messages %}
+          <a style="list-style-type:none"><br>{{ message }}</a>
+          {% endfor %}
+      </div>
+      {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+  </center>
+</div>
+
+</center>
+</div>
+
+
     </body>
 </html>

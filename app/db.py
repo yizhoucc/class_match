@@ -239,10 +239,7 @@ def new_class(class_code,dbconf=dbconf):
         connection.commit()
     finally:
         connection.close()
-    # if result is not None:
-    #     return result
-    # else:
-    #     return None
+
 
 def get_class_id(class_code,dbconf=dbconf ):
     connection=conn(dbconf)
@@ -264,7 +261,11 @@ def enroll_class(class_code,user_id,dbconf=dbconf):
             sql = "select `entry_id` from `class_info` where `class_id`=%s;"
             cursor.execute(sql, (class_code))
             result = cursor.fetchone()
-            entry_id=result['entry_id']
+            if result is None:
+                entry_id=0
+            else:
+               entry_id=result['entry_id']
+
         with connection.cursor() as cursor:
             sql = "insert into `class_students` (`entry_id`, `user_id`) values (%s, %s);"
             cursor.execute(sql, (entry_id,user_id))
