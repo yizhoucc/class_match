@@ -10,7 +10,7 @@ Daming Li
 The pandemic of COVID-19 has a severe negative impact on the learning experience at school. Students have significantly fewer chances to know and to interact with classmates. Whereas websites such as Canvas and Piazza are useful tools for pedagogical purposes, an application integrating formal learning and informal conversations or discussions is missing. Based on such considerations, we aimed at building a website "Classmatch", which allows students to connect based on the common courses taken and to know each other better through academic or non-academic discussions in class chatrooms. 
 
 ## What Classmatch does
-Classmatch, in its current basic version, achieves the following functionalities: Creation of an account; Login/Logout; Enter personal information; Enter course titles; See name and contact information of those who are in the same classes with you.
+Classmatch, in its current basic version, achieves the following functionalities: Creation of an account; Login/Logout; Enter personal information; Enter course titles; See name and contact information of those who are in the same classes with you. The application is running in a pop up window, as we wanted it to be light and easy for chatting purposes.
 
 ## How we built Classmatch
 The application was built in the framework of Flask. User and class information are kept in database using MySQL. The front end was built using CSS and Javascript.
