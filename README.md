@@ -23,7 +23,7 @@ Apparently, fulfilling all the key features of this application is a big project
 ## Challenges we ran into
 
 ## Accomplishments that we are proud of
-This is a large-scale project and completing all the core functionalities apparently requires more time than a mere week. We knew this well in mind, and are proud to have established a rudimentary version of it under time pressure. Our system manages user and course information consistently under updates and insertions.
+This is a large-scale project and completing all the core functionalities apparently requires more time than a mere week. We knew this well in mind, and are proud to have established a rudimentary version of it under time pressure. Our system manages user and course information consistently upon updates and insertions.
 
 ## What we learned
 - Product and UI design
