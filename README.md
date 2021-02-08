@@ -21,7 +21,7 @@ The application was built in the framework of Flask. User and class information 
 Apparently, fulfilling all the key features of this application is a big project and the vision can go more ambitious. The short term goal is to make the application more secure by verifying the edu mailing address and gives the user to selectively show personal information. A personal webpage for each registered user is going to be added. Next, we would implement the chatting features (starting from a Say Hi feature) and create metrics to monitor user interactions and enhance user engagement.
 
 ## Challenges we ran into
-- Maintaining user and class information dynamically and consistently in database
+- Maintaining user and class information dynamically and consistently in databases
 - Interface between the python and CSS code
 
 ## Accomplishments that we are proud of
